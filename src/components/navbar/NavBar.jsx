@@ -1,4 +1,7 @@
+
+
 import Link from "next/link";
+import styles from "./navbar.module.css";
 
 const links = [
     {
@@ -36,14 +39,17 @@ const links = [
 
 const NavBar = () => {
     return (
-        <div>
-            <Link href="/">
+        <div className={styles.container}>
+            <Link href="/" className={styles.logo}>
                 Nextjs13
             </Link>
-            <div>
+            <div className={styles.links}>
                 {links.map((link) => (
-                    <Link href={link.url} key={link.id}>{link.title}</Link>
+                    <Link href={link.url} key={link.id} className={styles.link}>{link.title}</Link>
                 ))}
+                <button className={styles.logout} >
+                    Logout
+                </button>
             </div>
         </div>
     )
