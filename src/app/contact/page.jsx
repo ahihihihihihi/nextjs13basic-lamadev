@@ -3,7 +3,10 @@ import styles from "./contact.module.css";
 import Image from "next/image";
 import Button from "@/components/Button/Button";
 
-
+export const metadata = {
+    title: "Nextjs13 Contact Information",
+    description: "This is Contact Page",
+};
 
 const Contact = () => {
     return (
