@@ -2,6 +2,8 @@ import NavBar from '@/components/navbar/NavBar'
 import './globals.css'
 import { Inter, Roboto, Poppins } from 'next/font/google'
 import Footer from '@/components/footer/Footer'
+import { ThemeContextProvider } from '@/components/context/ThemeContext'
+import ThemeProvider from '@/components/provider/ThemeProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,11 +16,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="container">
-          <NavBar />
-          {children}
-          <Footer />
-        </div>
+        <ThemeContextProvider>
+          <ThemeProvider>
+            <div className="container">
+              <NavBar />
+              {children}
+              <Footer />
+            </div>
+          </ThemeProvider>
+        </ThemeContextProvider>
       </body>
     </html>
   )
