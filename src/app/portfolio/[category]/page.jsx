@@ -1,6 +1,6 @@
 
 import styles from "./category.module.css";
-import Button from "@/components/Button/Button";
+import Button from "@/components/button/Button";
 import Image from "next/image";
 import { items } from "./data.js";
 

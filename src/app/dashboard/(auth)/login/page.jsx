@@ -2,13 +2,15 @@
 
 import { signIn, useSession } from "next-auth/react";
 import styles from "./login.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
 
     const session = useSession();
-    console.log(">>>check session: ", session)
+    // console.log(">>>check session: ", session)
+    const router = useRouter();
 
     const [error, setError] = useState("");
 
@@ -22,6 +24,16 @@ const Login = () => {
             password,
         });
     };
+
+    useEffect(() => {
+        if (session.status === "authenticated") {
+            router.push("/dashboard");
+        }
+    }, [session.status]);
+
+    if (session.status === "loading") {
+        return <p>Loading...</p>;
+    }
 
     return (
         <div className={styles.container}>
@@ -66,6 +78,9 @@ const Login = () => {
             </Link>
         </div>
     );
+
+
+
 }
 
 export default Login;

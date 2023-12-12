@@ -1,8 +1,10 @@
-
+'use client'
 
 import Link from "next/link";
 import styles from "./navbar.module.css";
 import DarkModeToggle from "../DarkModeToggle/DarkModeToggle";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation'
 
 const links = [
     {
@@ -39,6 +41,10 @@ const links = [
 
 
 const NavBar = () => {
+
+    const session = useSession();
+    const router = useRouter()
+
     return (
         <div className={styles.container}>
             <Link href="/" className={styles.logo}>
@@ -46,12 +52,38 @@ const NavBar = () => {
             </Link>
             <div className={styles.links}>
                 <DarkModeToggle />
-                {links.map((link) => (
+                {links.map((link) => {
+                    if (link.title === "Dashboard" && session.status !== "authenticated") {
+                        return
+                    }
+
+                    return (
+                        <Link href={link.url} key={link.id} className={styles.link}>{link.title}</Link>
+                    )
+                })}
+                {/* {links.map((link) => (
                     <Link href={link.url} key={link.id} className={styles.link}>{link.title}</Link>
-                ))}
-                <button className={styles.logout} >
-                    Logout
-                </button>
+                ))} */}
+                {
+                    session.status === "authenticated"
+                    &&
+                    <button
+                        className={styles.logout}
+                        onClick={signOut}
+                    >
+                        Logout
+                    </button>
+                }
+                {
+                    session.status !== "authenticated"
+                    &&
+                    <button
+                        className={styles.logout}
+                        onClick={() => router.push("/dashboard/login")}
+                    >
+                        Login
+                    </button>
+                }
             </div>
         </div>
     )
