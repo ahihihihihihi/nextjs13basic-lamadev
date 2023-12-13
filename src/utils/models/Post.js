@@ -14,7 +14,7 @@ const postSchema = new Schema(
         },
         img: {
             type: String,
-            required: true,
+            // required: true,
         },
         content: {
             type: String,
