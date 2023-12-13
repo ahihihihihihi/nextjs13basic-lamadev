@@ -48,7 +48,7 @@ const NavBar = () => {
     return (
         <div className={styles.container}>
             <Link href="/" className={styles.logo}>
-                Nextjs13
+                Nextjs14
             </Link>
             <div className={styles.links}>
                 <DarkModeToggle />

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 async function getData() {
     const res = await fetch("http://localhost:3000/api/posts", {
-
+        next: { tags: ['posts'] }
     });
 
     if (!res.ok) {

@@ -5,6 +5,10 @@ import useSWR from "swr";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import RevalidateTag from "@/utils/actions/action";
+
+
+
 
 const Dashboard = () => {
 
@@ -64,10 +68,9 @@ const Dashboard = () => {
                     username: session.data.user.name,
                 }),
             });
-            await fetch("/api/revalidate?path=/blog", {
-            });
             mutate();
             e.target.reset()
+            RevalidateTag('posts')
         } catch (err) {
             console.log(err);
         }
@@ -78,9 +81,8 @@ const Dashboard = () => {
             await fetch(`/api/posts/${id}`, {
                 method: "DELETE",
             });
-            await fetch("/api/revalidate?path=/blog", {
-            });
             mutate();
+            RevalidateTag('posts')
         } catch (err) {
             console.log(err);
         }
